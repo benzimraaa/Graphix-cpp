@@ -4,7 +4,7 @@
 
 Game::Game(int width, int height) : 
     gfx(width, height),
-    star(10, 100, -200)
+    arrow(Point(0, 0), Point(100, 300), Color(255, 0, 0))
     
 {}
 
@@ -52,19 +52,19 @@ void Game::updateModel(SDL_Event event)
     };
     const int speed = 10;
     if (isKeyPressed(SDL_SCANCODE_RIGHT)) {
-        star.translate(Point(speed, 0));
+        arrow.translate(Point(speed, 0));
     } if (isKeyPressed(SDL_SCANCODE_LEFT)) {
-        star.translate(Point(-speed, 0));
+        arrow.translate(Point(-speed, 0));
     } if (isKeyPressed(SDL_SCANCODE_UP)) {
-        star.translate(Point(0, speed));
+        arrow.translate(Point(0, speed));
     } if (isKeyPressed(SDL_SCANCODE_DOWN)) {
-        star.translate(Point(0, -speed));
+        arrow.translate(Point(0, -speed));
     } if (event.type == SDL_MOUSEWHEEL){
         if (event.wheel.y > 0){
-            star.setScaler(star.getScaler() * 1.05);
+            arrow.setScaler(arrow.getScaler() * 1.05);
         }
         else if (event.wheel.y < 0){
-            star.setScaler(star.getScaler() * .95);
+            arrow.setScaler(arrow.getScaler() * .95);
         }
     }
 
@@ -87,7 +87,7 @@ void Game::composeFrame()
 {   
     // handleMouseClick(300, 300);
     gfx.clear();
-    gfx.drawPolygon(star.getPoints(), star.getColor());
+    gfx.drawPolygon(arrow.getPoints(), arrow.getColor());
     // gfx.drawEllipse(Point(0,0), 200, 200, Color(255, 250, 0));
 
     // // gfx.clear();

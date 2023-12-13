@@ -1,5 +1,5 @@
 #include "Graphix.h"
-#include "Star.h"
+#include "Arrow.h"
 
 class Game {
 public:
@@ -16,7 +16,7 @@ private:
     Graphix gfx;
     bool quit;
     bool isDragging = false;
-    Star star;
+    Arrow arrow;
     
 };
 
