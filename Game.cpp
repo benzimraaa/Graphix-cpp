@@ -1,12 +1,17 @@
 #include "Game.h"
 #include <iostream>
+#include "Ball.h"
 
 
 Game::Game(int width, int height) : 
-    gfx(width, height),
-    arrow(Point(0, 0), Point(100, 300), Color(255, 0, 0))
+    gfx(width, height)
     
-{}
+{
+    // Arrow arrow(Point(0, 0), Point(100, 300), Color(255, 0, 0));
+    // Star star(100, 20, -1);
+    Ball ball(10);
+    this->entity = ball;
+}
 
 void Game::handleEvents() {
         SDL_Event event;
@@ -52,21 +57,31 @@ void Game::updateModel(SDL_Event event)
     };
     const int speed = 10;
     if (isKeyPressed(SDL_SCANCODE_RIGHT)) {
-        arrow.translate(Point(speed, 0));
-    } if (isKeyPressed(SDL_SCANCODE_LEFT)) {
-        arrow.translate(Point(-speed, 0));
-    } if (isKeyPressed(SDL_SCANCODE_UP)) {
-        arrow.translate(Point(0, speed));
-    } if (isKeyPressed(SDL_SCANCODE_DOWN)) {
-        arrow.translate(Point(0, -speed));
-    } if (event.type == SDL_MOUSEWHEEL){
+        entity.translate(Point(speed, 0));
+    } 
+    if (isKeyPressed(SDL_SCANCODE_LEFT)) {
+        entity.translate(Point(-speed, 0));
+    } 
+    if (isKeyPressed(SDL_SCANCODE_UP)) {
+        entity.translate(Point(0, speed));
+    } 
+    if (isKeyPressed(SDL_SCANCODE_DOWN)) {
+        entity.translate(Point(0, -speed));
+    } 
+    if (isKeyPressed(SDL_SCANCODE_PAGEUP)){
+        entity.setRotator(entity.getRotator() + M_PI/7);
+    } 
+    if (isKeyPressed(SDL_SCANCODE_PAGEDOWN)){
+        entity.setRotator(entity.getRotator() - M_PI/7);
+    } 
+    if (event.type == SDL_MOUSEWHEEL){
         if (event.wheel.y > 0){
-            arrow.setScaler(arrow.getScaler() * 1.05);
+            entity.setScaler(entity.getScaler() * 1.05);
         }
         else if (event.wheel.y < 0){
-            arrow.setScaler(arrow.getScaler() * .95);
+            entity.setScaler(entity.getScaler() * .95);
         }
-    }
+    } 
 
 }
 
@@ -87,7 +102,9 @@ void Game::composeFrame()
 {   
     // handleMouseClick(300, 300);
     gfx.clear();
-    gfx.drawPolygon(arrow.getPoints(), arrow.getColor());
+    entity.update();
+    gfx.drawPolygon(entity.getPoints(), entity.getColor());
+    
     // gfx.drawEllipse(Point(0,0), 200, 200, Color(255, 250, 0));
 
     // // gfx.clear();

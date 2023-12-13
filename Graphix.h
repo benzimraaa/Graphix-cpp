@@ -18,6 +18,7 @@ public:
     int getWidth() const { return width; }
     int getHeight() const { return height; }
     void cohordinateTransformation(Point& p);
+    void rotateSpace(float angle);
     void clear();
     Uint32 lastUpdateTime = SDL_GetTicks();
 

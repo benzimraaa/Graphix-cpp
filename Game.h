@@ -1,5 +1,7 @@
 #include "Graphix.h"
 #include "Arrow.h"
+#include "Star.h"
+
 
 class Game {
 public:
@@ -16,7 +18,7 @@ private:
     Graphix gfx;
     bool quit;
     bool isDragging = false;
-    Arrow arrow;
+    Entity entity;
     
 };
 

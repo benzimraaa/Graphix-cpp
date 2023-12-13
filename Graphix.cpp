@@ -144,6 +144,10 @@ void Graphix::cohordinateTransformation(Point &p)
     
 }
 
+void Graphix::rotateSpace(float angle)
+{
+}
+
 void Graphix::clear()
 {
     pixels = std::vector<std::vector<Color>>(width, std::vector<Color>(height, Color(0, 0, 0)));

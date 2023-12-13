@@ -13,7 +13,7 @@ private:
 public:
     Star(int vertices, int innerRadius, int outerRadius, Point center = Point(0, 0), Color color = Color(255, 0, 0));
     ~Star();
-    vector<Point> getPoints();
+    // vector<Point> getPoints();
 };
 
 #endif // STAR_H
