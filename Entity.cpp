@@ -32,9 +32,4 @@ void Entity::translate(Point translation)
 }
 
 void Entity::update()
-{
-    for (auto &p : points)
-    {
-        p = updateFunction(p);
-    }
-}
+{}

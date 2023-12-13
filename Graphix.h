@@ -4,10 +4,11 @@
 #include <vector>
 #include "Color.cpp"
 #include "Point.h"
+#include "Camera.h"
 
 class Graphix {
 public:
-    Graphix(int width, int height);
+    Graphix(int width, int height, Camera* cam = nullptr);
     ~Graphix();
 
     void putPixel(int x, int y, const Color& color = Color(0, 0, 0));
@@ -29,4 +30,5 @@ private:
     int width;
     int height;
     std::vector<std::vector<Color>> pixels;
+    Camera* cam;
 };

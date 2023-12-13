@@ -17,6 +17,13 @@ Point& Point::operator+=(Point& p)
     return *this;
 }
 
+Point &Point::operator-=(Point &p)
+{
+    this->x -= p.x;
+    this->y -= p.y;
+    return *this;
+}
+
 Point Point::operator*(const float &f)
 {
     return Point(static_cast<int>(this->x * f), 

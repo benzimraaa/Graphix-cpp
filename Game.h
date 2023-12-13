@@ -1,6 +1,8 @@
 #include "Graphix.h"
 #include "Arrow.h"
 #include "Star.h"
+#include "Ball.h"
+#include "Camera.h"
 
 
 class Game {
@@ -18,7 +20,9 @@ private:
     Graphix gfx;
     bool quit;
     bool isDragging = false;
-    Entity entity;
+    Entity* entity;
+    Camera cam;
+    vector<Ball> Balls;
     
 };
 

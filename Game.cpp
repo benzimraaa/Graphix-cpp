@@ -1,16 +1,33 @@
 #include "Game.h"
 #include <iostream>
-#include "Ball.h"
 
 
 Game::Game(int width, int height) : 
-    gfx(width, height)
+    cam(),
+    gfx(width, height, &cam)
     
 {
     // Arrow arrow(Point(0, 0), Point(100, 300), Color(255, 0, 0));
     // Star star(100, 20, -1);
-    Ball ball(10);
-    this->entity = ball;
+    
+    this->entity = new Ball(10);
+    auto rand_radius = [](){
+        return rand() % 100 + 10;
+    };
+    auto rand_color = [](){
+        return Color(rand() % 255, rand() % 255, rand() % 255);
+    };
+    
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(1, 1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(1, -1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(-1, 1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(-1, -1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(1, 0));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(0, 1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(-1, 0));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(0, -1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(2, 1));
+    Balls.emplace_back(rand_radius(), Point(0, 0), rand_color(), Point(2, -1));
 }
 
 void Game::handleEvents() {
@@ -57,29 +74,29 @@ void Game::updateModel(SDL_Event event)
     };
     const int speed = 10;
     if (isKeyPressed(SDL_SCANCODE_RIGHT)) {
-        entity.translate(Point(speed, 0));
+        cam.moveBy(Point(speed, 0));
     } 
     if (isKeyPressed(SDL_SCANCODE_LEFT)) {
-        entity.translate(Point(-speed, 0));
+        cam.moveBy(Point(-speed, 0));
     } 
     if (isKeyPressed(SDL_SCANCODE_UP)) {
-        entity.translate(Point(0, speed));
+        cam.moveBy(Point(0, speed));
     } 
     if (isKeyPressed(SDL_SCANCODE_DOWN)) {
-        entity.translate(Point(0, -speed));
+        cam.moveBy(Point(0, -speed));
     } 
     if (isKeyPressed(SDL_SCANCODE_PAGEUP)){
-        entity.setRotator(entity.getRotator() + M_PI/7);
+        entity->setRotator(entity->getRotator() + M_PI/7);
     } 
     if (isKeyPressed(SDL_SCANCODE_PAGEDOWN)){
-        entity.setRotator(entity.getRotator() - M_PI/7);
+        entity->setRotator(entity->getRotator() - M_PI/7);
     } 
     if (event.type == SDL_MOUSEWHEEL){
         if (event.wheel.y > 0){
-            entity.setScaler(entity.getScaler() * 1.05);
+            entity->setScaler(entity->getScaler() * 1.05);
         }
         else if (event.wheel.y < 0){
-            entity.setScaler(entity.getScaler() * .95);
+            entity->setScaler(entity->getScaler() * .95);
         }
     } 
 
@@ -102,8 +119,13 @@ void Game::composeFrame()
 {   
     // handleMouseClick(300, 300);
     gfx.clear();
-    entity.update();
-    gfx.drawPolygon(entity.getPoints(), entity.getColor());
+    entity->update();
+    gfx.drawPolygon(entity->getPoints(), entity->getColor());
+
+    for (auto& ball : Balls){
+        ball.update();
+        gfx.drawPolygon(ball.getPoints(), ball.getColor());
+    }
     
     // gfx.drawEllipse(Point(0,0), 200, 200, Color(255, 250, 0));
 

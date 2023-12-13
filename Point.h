@@ -12,6 +12,7 @@ public:
     ~Point();
     Point operator+(const Point& p);
     Point& operator+=(Point& p);
+    Point& operator-=(Point& p);
     Point operator*(const float& f);
     Point& operator*=(const float& f);
     Point rotate(const float& angle);

@@ -11,13 +11,12 @@ using namespace std;
 class Entity
 {
 private:
-        vector<Point> points;
         Color color;
         Point position;
         float scaler = 1.0f;
         float rotator = 0.0f;
 protected:
-        function<Point(Point)> updateFunction = [](Point p) { return p; };
+        vector<Point> points;
 
 public:
         Entity(vector<Point> points, Color color=Color(255, 0, 0), Point position=Point(0, 0));
@@ -37,7 +36,7 @@ public:
         float getRotator() const { return rotator; }
         void setRotator(float angle) { this->rotator = angle;}
         void rotateRotator(float angle) { this->rotator += angle; }
-        void update();
+        virtual void update()=0;
 
 };
 

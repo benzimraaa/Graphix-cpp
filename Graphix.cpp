@@ -1,7 +1,11 @@
 #include "Graphix.h"
 #include <iostream>
 
-Graphix::Graphix(int width, int height) : width(width), height(height), pixels(width, std::vector<Color>(height, Color(0, 0, 0))) {
+Graphix::Graphix(int width, int height, Camera* cam) : 
+    width(width), height(height), 
+    pixels(width, std::vector<Color>(height, Color(0, 0, 0))),
+    cam(cam)
+{
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
     }
@@ -36,6 +40,8 @@ Graphix::~Graphix() {
 void Graphix::putPixel(int x, int y, const Color& color) {
     
     Point p(x, y);
+    if (cam != nullptr)
+        cam->transform(p);
     cohordinateTransformation(p);
 
     if (p.x >= 0 && p.x < width && p.y >= 0 && p.y < height) {
