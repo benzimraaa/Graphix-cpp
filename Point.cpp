@@ -35,6 +35,13 @@ Point Point::operator*(const float &f) const
                  static_cast<int>(this->y * f));
 }
 
+Point Point::operator/(const float &f) const
+{
+    return Point(static_cast<int>(this->x / f), 
+                 static_cast<int>(this->y / f));
+}
+
+
 Point& Point::operator*=(const float &f)
 {
     this->x = static_cast<int>(this->x * f);

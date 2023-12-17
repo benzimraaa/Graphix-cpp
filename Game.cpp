@@ -19,13 +19,8 @@ void Game::handleEvents() {
             if (event.type == SDL_QUIT) {
                 quit = true;
             }
+            updateModel(event);
             
-            else if (event.type == SDL_KEYDOWN){
-                updateModel(event);
-            }
-            if (event.type == SDL_MOUSEWHEEL){
-                updateModel(event);
-            }
         }
 }
 
@@ -84,6 +79,21 @@ void Game::updateModel(SDL_Event event)
             cam.zoom(0.95);
         }
     } 
+    if (event.type == SDL_MOUSEBUTTONDOWN){
+        if (event.button.button == SDL_BUTTON_LEFT){
+            isDragging = true;
+            cam.dragStart = Point(event.button.x, event.button.y);
+        }
+    }
+    if (event.type == SDL_MOUSEBUTTONUP){
+        if (event.button.button == SDL_BUTTON_LEFT){
+            isDragging = false;
+        }
+    }
+    if (isDragging){
+        cam.dragEnd = Point(event.button.x, event.button.y);
+        cam.relativeMove();
+    }
 
 }
 

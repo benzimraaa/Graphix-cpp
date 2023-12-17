@@ -1,7 +1,8 @@
 #include "Camera.h"
 #include <valarray>
+#include <iostream>
 
-Camera::Camera(): pos(Point(0, 0)), zoomFactor(1)
+Camera::Camera(): pos(Point(0, 0)), zoomFactor(1), rotationAngle(0), dragStart(0, 0), dragEnd(0, 0)
 {
 }
 
@@ -36,4 +37,18 @@ void Camera::zoom(double factor)
 void Camera::rotate(double angle)
 {
     rotationAngle += angle;
+}
+
+void Camera::relativeMove()
+{
+    Point delta = dragEnd - dragStart;
+    if (abs(delta.x) < 1000 && abs(delta.y) < 1000){
+        delta.x = -delta.x;
+        delta.rotate(-rotationAngle);
+        moveBy(delta/zoomFactor);
+        // std::cout << "delta: " << delta << " ,"<< dragEnd - dragStart<<std::endl;
+        dragStart = dragEnd;
+    }
+
+    
 }

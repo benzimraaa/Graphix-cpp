@@ -16,6 +16,9 @@ public:
     void transform(Point& p);
     void zoom(double factor);
     void rotate(double angle);
+    void relativeMove();
+    Point dragStart;
+    Point dragEnd;
 };
 
 
