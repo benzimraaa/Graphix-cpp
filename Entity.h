@@ -15,12 +15,13 @@ private:
         Point position;
         float scaler = 1.0f;
         float rotator = 0.0f;
+        string type;
 protected:
         vector<Point> points;
 
 public:
-        Entity(vector<Point> points, Color color=Color(255, 0, 0), Point position=Point(0, 0));
-        Entity(Point position=Point(0, 0), Color color=Color(255, 0, 0));
+        Entity(vector<Point> points, Color color=Color(255, 0, 0), Point position=Point(0, 0), string type="");
+        Entity(Point position=Point(0, 0), Color color=Color(255, 0, 0), string type="");
         ~Entity();
         Point getPosition() const { return position; }
         void setPosition(Point position) { this->position = position; }
@@ -36,6 +37,8 @@ public:
         float getRotator() const { return rotator; }
         void setRotator(float angle) { this->rotator = angle;}
         void rotateRotator(float angle) { this->rotator += angle; }
+        string getType() const { return type; }
+        void setType(string type) { this->type = type; }
         virtual void update()=0;
 
 };

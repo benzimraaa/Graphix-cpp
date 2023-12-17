@@ -22,6 +22,7 @@ public:
     void rotateSpace(float angle);
     void clear();
     Uint32 lastUpdateTime = SDL_GetTicks();
+    
 
 
 private:

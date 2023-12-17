@@ -1,8 +1,11 @@
+#pragma once
 #include "Entity.h"
+#include "Rod.h"
 
 class Ball : public Entity
 {
 private:
+    Point center;
     int radius;
     Point speed;
 public:
@@ -13,4 +16,11 @@ public:
             );
     ~Ball();
     void update() override; 
+    Point getCenter() { return center; }
+    int getRadius() { return radius; };
+    Point getSpeed() { return speed; };
+    void setSpeed(Point speed) { this->speed = speed; };
+    // func for if ball collides with rod change speed
+    void collideWithRod(Rod& rod);
+
 };

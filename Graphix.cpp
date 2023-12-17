@@ -1,6 +1,8 @@
 #include "Graphix.h"
 #include <iostream>
 
+const char* FILE_PATH = "/home/mefathim-tech-25/Downloads/whoosh-cinematic-161021.wav";
+
 Graphix::Graphix(int width, int height, Camera* cam) : 
     width(width), height(height), 
     pixels(width, std::vector<Color>(height, Color(0, 0, 0))),

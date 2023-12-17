@@ -1,11 +1,13 @@
 #include "Entity.h"
 #include <iostream>
 
-Entity::Entity(vector<Point> points, Color color, Point position) : points(std::move(points)), color(color), position(position)
+Entity::Entity(vector<Point> points, Color color, Point position, string type) : 
+    points(std::move(points)), color(color), position(position), type(type) 
 {
 }
 
-Entity::Entity(Point position, Color color) : color(color), position(position)
+Entity::Entity(Point position, Color color, string type) : 
+    color(color), position(position), type(type)
 {
 }
 

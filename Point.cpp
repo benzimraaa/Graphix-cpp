@@ -10,6 +10,11 @@ Point Point::operator+(const Point& p)
     return Point(this->x + p.x, this->y + p.y);
 }
 
+Point Point::operator-(const Point& p)
+{
+    return Point(this->x - p.x, this->y - p.y);
+}
+
 Point& Point::operator+=(Point& p)
 {
     this->x += p.x;
@@ -24,7 +29,7 @@ Point &Point::operator-=(Point &p)
     return *this;
 }
 
-Point Point::operator*(const float &f)
+Point Point::operator*(const float &f) const
 {
     return Point(static_cast<int>(this->x * f), 
                  static_cast<int>(this->y * f));
@@ -52,6 +57,34 @@ Point Point::rotate(const float &angle, const Point &origin)
     int x = static_cast<int>(dx * cos(angle) - dy * sin(angle));
     int y = static_cast<int>(dx * sin(angle) + dy * cos(angle));
     return Point(x , y) + origin;
+}
+
+float Point::dot(const Point &p)
+{
+    return this->x * p.x + this->y * p.y;
+}
+
+float Point::norm2() const
+{
+    return pow(this->x, 2) + pow(this->y, 2);
+}
+
+float Point::length()
+{
+    return sqrt(norm2());
+}
+
+void Point::setLength(float length)
+{
+    float norm = this->length();
+    // devide by len and cast to int
+    this->x = static_cast<int>(this->x / norm * length);
+    this->y = static_cast<int>(this->y / norm * length);
+}
+
+Point Point::projectionVector(const Point &p)
+{
+    return p * (this->dot(p) / p.norm2());
 }
 
 std::ostream &operator<<(std::ostream &os, const Point &p)
